@@ -1,37 +1,17 @@
-import {useState} from 'react'
+import {useState , useEffect} from 'react'
+import Content from './Content.js'
 
 function App() {
-  const [job,setJob] = useState('')
-  const [jobs,setJobs] = useState( ()=>{
-    const storageJobs = JSON.parse(localStorage.getItem('jobs'))
-    console.log(storageJobs)
-    return storageJobs ?? []
-  })
+ const [info,setInfo] = useState(false)
+ 
 
-  const handleSubmit = () =>{
-    setJobs(prev =>{
-      const newJobs = [...prev,job]
-      const jsonJobs = JSON.stringify(newJobs)
-      localStorage.setItem('jobs',jsonJobs)
-      console.log(newJobs)
-      return newJobs
-    })
-    setJob('');
-  }
+
   return (
     <div className="App">
-    <input 
-      type="text" 
-      value={job}
-      onChange={e => setJob(e.target.value)}
-      />
-    <button onClick={handleSubmit}>Add</button>
-    <ul>
-      {jobs.map( (job,index) =>(
-        <li key={index}>{job}</li>
-      ))}
+      <button onClick={ ()=> setInfo(!info) }>Toggle</button>
+      { info && <Content/> }
       
-    </ul>
+   
     </div>
   );
 }
