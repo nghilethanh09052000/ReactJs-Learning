@@ -1,51 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 
-const lessons = [
-                { 
-                    name:'ReactJS là gì? Tại sao nên học ReactJS',
-                    id:1
-                },
-               {
-                   name:'SPA/MPA là gì?',
-                    id:2
-                },
-                {
-                    name:'Arrow function',
-                    id:3
-                },
-            ]
 function Content(){
-    const [lessonId , setLessonId] = useState(1);
-
-    useEffect( ()=>{
-        const handleComment = ({detail}) =>{
-            console.log(detail)
+    const [count , setCount] = useState(0);
+    useLayoutEffect(()=>{
+        if(count>3){
+            setCount(0)
         }
-        window.addEventListener(`lesson-${lessonId}`, handleComment)
-
-        return ()=>{
-            window.removeEventListener(`lesson-${lessonId}`, handleComment)
-        }
-        
-    },[lessonId])
+    },[count])
+    const handleRun = () =>{
+        setCount(count + 1 )
+    }
+    
    
     return(
         <div>
-         <ul>
-             {lessons.map(lesson=>(
-                 <li
-                    key={lesson.id}
-                    style={{
-                        color:lessonId === lesson.id ? 
-                        'red' : '#333'
-                    }}
-                    onClick={()=>setLessonId(lesson.id)}
-                 >
-                        {lesson.name}
-                 </li>
-             ))}
-         </ul>
-       
+            <h1>{count}</h1>
+            <button onClick={handleRun}>Run</button>
         </div>
         
     )
