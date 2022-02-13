@@ -1,0 +1,28 @@
+1. useEffect(callback)
+- Gọi callback mỗi khi component re-render
+- Gọi callback sau khi component thêm vào DOM
+- *
+2. useEffect(callback,[])
+- Chỉ gọi callback một lần sau khi component mounted
+- *
+3. useEffect(callback, [deps])
+- Callback được gọi lại mỗi khi deps thay đổi
+- *
+----------------------------------------------
+*.
+- Callback luôn được gọi lại sau khi component mounted 
+- Cleanup function luôn được gọi trước khi component unmounted
+- Cleanup function luôn được gọi trước khi callback được gọi
+
+*---useEffect---*:
+1. Cập nhật lại state
+2. Cập nhật DOM (mutated)
+3. Render lại UI
+4. Gọi cleanup nếu deps thay đổi
+5. Gọi useEffect callback
+*---useLayoutEffect---*:
+1. Cập nhật lại state
+2. Cập nhật DOM
+3. Gọi cleanup nếu deps thay đổi (sync)
+4. Gọi useLayoutEffect callback (sync)
+5. Render lại UI
