@@ -1,55 +1,40 @@
-import {useState , useEffect, useRef,memo, useCallback, useMemo} from 'react'
+import {useState , useEffect, useRef,memo, useCallback, useMemo, useReducer} from 'react'
 import Content from './Content.js'
 
-function App() {
-  const [name , setName] = useState('');
-  const [price , setPrice] = useState('');
-  const [products , setProducts] = useState([]);
-  const nameRef = useRef()
+// useReducer:
+// 1. Init state
+// 2. Action: Up(state + 1) / Down(state - 1)
+// 3. Reducer
+// 4. Dispatch
 
-  const handleSubmit =()=>{
-    setProducts([
-      ...products,{
-        name,
-        price: parseInt(price)
-      }])
-      setName('')
-      setPrice('')
-      nameRef.current.focus()
+// Init State:
+const initState = 0 
+
+// Actions
+const UP_ACTION ='up'
+const DOWN_ACTION ='down'
+
+// Reducer:
+const reducer = (state , action) =>{
+  switch(action){
+    case UP_ACTION:
+      return state + 1
+    case DOWN_ACTION:
+      return state - 1
+    default:
+      throw new Error('Invalid action')
   }
-  const total = useMemo( ()=>{
-   const result = products.reduce( (result , product) =>{
-        console.log('Tính toán lại')
-        return result + product.price
-   },0) 
+    
+}
 
-  return result
-  },[products])
+function App() {
+  const [count , dispatch] = useReducer(reducer , initState);
+
   return (
     <div className="App">
-      <input
-          ref={nameRef}
-          value={name}
-          onChange={(e)=>setName(e.target.value)}
-          placeholder='Enter name..' 
-      />
-      <br />
-       <input
-          value={price}
-          type='Number'
-          onChange={(e)=>setPrice(e.target.value)}
-          placeholder='Enter price..' 
-      />
-        <br />
-      <button onClick={handleSubmit}>Submit</button>
-      <br />
-      <h4>{total}</h4>
-      <ul>
-        {products.map( (product,index)=>(
-          <li key={index}>{product.name} - {product.price} </li>
-        ))}
-      </ul>
-
+      <h4>{count}</h4>
+     <button onClick={()=> dispatch(DOWN_ACTION)}>Decrease</button>
+     <button onClick={()=> dispatch(UP_ACTION)}>Increase</button>
     </div>
   );
 }
