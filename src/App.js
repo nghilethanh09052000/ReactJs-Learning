@@ -1,25 +1,19 @@
-import {useState , useEffect, useRef} from 'react'
+import {useState , useEffect, useRef,memo} from 'react'
 import Content from './Content.js'
 
 function App() {
-  const [count , setCount] = useState(60);
+  const [count , setCount] = useState(0);
 
-  let timerId = useRef()
-  const handleStart =()=>{
-    timerId.current = setInterval(() =>{
-      setCount(prevState => prevState -1 )
- 
-    },1000)
-  }
-  const handleStop =()=>{
-    clearInterval(timerId.current)
+  const increase =()=>{
+    setCount(count + 1)
   }
 
   return (
     <div className="App">
+      <Content/>
       <h1>{count}</h1>
-      <button onClick={handleStart}>Start</button>
-      <button onClick={handleStop}>Stop</button>
+      <button onClick={increase}>Increase</button>
+
     </div>
   );
 }

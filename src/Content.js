@@ -1,15 +1,15 @@
-import { useEffect, useState, useLayoutEffect } from "react";
+import {memo} from 'react'
 
 function Content(){
     
-    
+    console.log('nghi')
    
     return(
         <div>
-
+            <h1>Nghị</h1>
         </div>
         
     )
     
 }
-export default Content;
+export default memo(Content);
