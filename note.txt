@@ -26,3 +26,5 @@
 3. Gọi cleanup nếu deps thay đổi (sync)
 4. Gọi useLayoutEffect callback (sync)
 5. Render lại UI
+*---useRef---*:
+- Lưu các giá trị qua một tham chiếu bên ngoài function component

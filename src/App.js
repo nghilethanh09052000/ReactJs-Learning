@@ -1,17 +1,25 @@
-import {useState , useEffect} from 'react'
+import {useState , useEffect, useRef} from 'react'
 import Content from './Content.js'
 
 function App() {
- const [info,setInfo] = useState(false)
- 
+  const [count , setCount] = useState(60);
 
+  let timerId = useRef()
+  const handleStart =()=>{
+    timerId.current = setInterval(() =>{
+      setCount(prevState => prevState -1 )
+ 
+    },1000)
+  }
+  const handleStop =()=>{
+    clearInterval(timerId.current)
+  }
 
   return (
     <div className="App">
-      <button onClick={ ()=> setInfo(!info) }>Toggle</button>
-      { info && <Content/> }
-      
-   
+      <h1>{count}</h1>
+      <button onClick={handleStart}>Start</button>
+      <button onClick={handleStop}>Stop</button>
     </div>
   );
 }
