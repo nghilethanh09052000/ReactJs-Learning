@@ -1,20 +1,54 @@
-import {useState , useEffect, useRef,memo, useCallback} from 'react'
+import {useState , useEffect, useRef,memo, useCallback, useMemo} from 'react'
 import Content from './Content.js'
 
 function App() {
-  const [count , setCount] = useState(0);
+  const [name , setName] = useState('');
+  const [price , setPrice] = useState('');
+  const [products , setProducts] = useState([]);
+  const nameRef = useRef()
 
-  const handleIncrease =useCallback(()=>{
-    setCount(prevCount => prevCount + 1)
-  },[])
+  const handleSubmit =()=>{
+    setProducts([
+      ...products,{
+        name,
+        price: parseInt(price)
+      }])
+      setName('')
+      setPrice('')
+      nameRef.current.focus()
+  }
+  const total = useMemo( ()=>{
+   const result = products.reduce( (result , product) =>{
+        console.log('Tính toán lại')
+        return result + product.price
+   },0) 
 
+  return result
+  },[products])
   return (
     <div className="App">
-      <Content
-          onIncrease ={handleIncrease}
+      <input
+          ref={nameRef}
+          value={name}
+          onChange={(e)=>setName(e.target.value)}
+          placeholder='Enter name..' 
       />
-      <h1>{count}</h1>
-      
+      <br />
+       <input
+          value={price}
+          type='Number'
+          onChange={(e)=>setPrice(e.target.value)}
+          placeholder='Enter price..' 
+      />
+        <br />
+      <button onClick={handleSubmit}>Submit</button>
+      <br />
+      <h4>{total}</h4>
+      <ul>
+        {products.map( (product,index)=>(
+          <li key={index}>{product.name} - {product.price} </li>
+        ))}
+      </ul>
 
     </div>
   );

@@ -32,3 +32,7 @@
 - Lưu các giá trị qua một tham chiếu bên ngoài function component
 
 *---memo---*:
+- Lưu lại component
+
+*---useMemo---*:
+- Lưu lại giá trị
