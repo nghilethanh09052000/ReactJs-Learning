@@ -36,3 +36,8 @@
 
 *---useMemo---*:
 - Lưu lại giá trị
+
+*---useContext---*:
+1. Create Context
+2. Provider
+3. Consumer

@@ -1,86 +1,25 @@
-import { useReducer, useRef } from "react";
+import Content from "./Content";
+import './App.css'
+import {useContext} from 'react'
+import {themeContext} from './ThemeContext'
 
-// Init State:
-const initState = {
-  job: "",
-  jobs: []
-};
-// Action:
-const SET_JOB = "set_job";
-const ADD_JOB = "add_job";
-const DELETE_JOB = "delete_job";
-
-const setJob = (payload) => {
-  return {
-    type: SET_JOB,
-    payload
-  };
-};
-const addJob = (payload) => {
-  return {
-    type: ADD_JOB,
-    payload
-  };
-};
-const deleteJob = (payload) => {
-  return {
-    type: DELETE_JOB,
-    payload
-  };
-};
-// reducer:
-const reducer = (state, action) => {
-  switch (action.type) {
-    case SET_JOB:
-      return {
-        ...state,
-        job: action.payload
-      };
-    case ADD_JOB:
-      return {
-        ...state,
-        jobs: [...state.jobs, action.payload]
-      };
-    case DELETE_JOB:
-      return {
-        ...state,
-        jobs: [...state.jobs].filter((job, index) => index !== action.payload)
-      };
-    default:
-      throw new Error("Invalid action");
-  }
-};
-
+//Context
+//CompA => CompC
+// *---------------*
+// 1. Create Context
+// 2. Provider
+// 3. Consumer
 function App() {
-  const [state, dispatch] = useReducer(reducer, initState);
-  const { job, jobs } = state;
+  const context = useContext(themeContext)
+ return (
+   
+          <div style={{ padding: 20 }}>
+            <button onClick={context.toggleTheme}>Toggle theme</button>
+            <Content/>
+          </div>
 
-  const h1Ref = useRef();
-
-  const handleSubmit = () => {
-    dispatch(addJob(job));
-    dispatch(setJob(""));
-    h1Ref.current.focus();
-  };
-
-  return (
-    <div style={{ padding: 20 }}>
-      <h3>Todo</h3>
-      <input
-        ref={h1Ref}
-        value={job}
-        onChange={(e) => dispatch(setJob(e.target.value))}
-      />
-      <button onClick={handleSubmit}>Add</button>
-      <ul>
-        {jobs.map((job, index) => (
-          <li key={index}>
-            {job}
-            <span onClick={() => dispatch(deleteJob(index))}>&times;</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+      
+    
   );
 }
 export default App;

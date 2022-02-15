@@ -1,16 +1,13 @@
-import {memo} from 'react'
+import Paragraph from './Paragraph'
 
-function Content({onIncrease}){
-    
-    console.log('nghi')
-   
+function Content(){
+ 
     return(
         <div>
-            <h1>Nghị</h1>
-            <button onClick={onIncrease}>Increase</button>
+            <Paragraph/>
         </div>
         
     )
     
 }
-export default memo(Content);
+export default Content;
